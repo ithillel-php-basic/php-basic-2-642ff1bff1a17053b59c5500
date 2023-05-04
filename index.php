@@ -1,6 +1,50 @@
 <?php
-$task = 'backlog'
+        $task = 'backlog';
+
+
+        $projects = ["Вхідні", "Навчання", "Робота", "Домашні справи", "Авто"];
+
+
+$tasks = [
+[
+'title' => 'Співбесіда в IT компанії',
+'project' => 'Робота',
+'status' => 'backlog',
+'due_date' => '01.03.2023',
+],
+[
+'title' => 'Виконати тестове завдання',
+'project' => 'Робота',
+'status' => 'backlog',
+'due_date' => '25.07.2023',
+],
+[
+'title' => 'Зробити завдання до першого уроку',
+'project' => 'Навчання',
+'status' => 'done',
+'due_date' => '27.04.2023',
+],
+[
+'title' => 'Зустрітись з друзями',
+'project' => 'Вхідні',
+'status' => 'to-do',
+'due_date' => '14.05.2023',
+],
+[
+'title' => 'Купити корм для кота',
+'project' => 'Домашні справи',
+'status' => 'in-progress',
+'due_date' => 'null',
+],
+[
+'title' => 'Замовити піцу',
+'project' => 'Домашні справи',
+'status' => 'to-do',
+'due_date' => 'null',
+],
+];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,19 +119,24 @@ $task = 'backlog'
         </div>
 
         <!-- Sidebar Menu -->
+
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <?php
+              for ($i = 0; $i < count($projects); $i++):
+                  ?>
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
+              <li class="nav-item">
               <a href="index.php" class="nav-link active">
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
-                  Назва проекту
-                  <span class="badge badge-info right">2</span>
+                    <?= $projects[$i];?>
+                    <span class="badge badge-info right">2</span>
                 </p>
               </a>
             </li>
+              <?php endfor; ?>
             <li class="nav-item">
               <a href="index.php" class="nav-link bg-olive">
                 <i class="nav-icon fas fa-plus"></i>
@@ -140,30 +189,38 @@ $task = 'backlog'
                 Беклог
               </h3>
             </div>
+
             <div class="card-body connectedSortable" data-status="backlog">
-                <?php if ($task === 'backlog'): ?>
+                <?php
+                for ($arr = 0; $arr < count($tasks); $arr++):
+                    switch($tasks[$arr]['status']) {
+                        case 'backlog':
+                            break;
+                        default:
+                            continue 2;
+                    }
+                    ?>
                 <div class="card card-info card-outline" data-task-id="1">
-                <div class="card-header">
-                  <h5 class="card-title">Зробити головну</h5>
-                  <div class="card-tools">
-                    <a href="#" class="btn btn-tool btn-link">#3</a>
+                 <div class="card-header">
+                  <h5 class="card-title">
+                      <?php echo ($tasks[$arr]['title']);?>
+                  </h5>
+                    <div class="card-tools">
+                        <a href="#" class="btn btn-tool btn-link">#3</a>
                     <a href="#" class="btn btn-tool">
-                      <i class="fas fa-pen"></i>
+                        <i class="fas fa-pen"></i>
                     </a>
                   </div>
                 </div>
                 <div class="card-body">
-                  <p>
-                    Зробити головну сторінку списку задач з можливістю перегляду,
-                    створення, редагування, видалення задач.
-                  </p>
+                  <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
                   <a href="#" class="btn btn-tool">
                     <i class="fas fa-file"></i>
                   </a>
                   <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
                 </div>
               </div>
-              <?php endif; ?>
+                <?php endfor; ?>
             </div>
           </div>
           <div class="card card-row card-primary">
@@ -173,6 +230,36 @@ $task = 'backlog'
               </h3>
             </div>
             <div class="card-body connectedSortable" data-status="to-do">
+                <?php
+                for ($arr = 0; $arr < count($tasks); $arr++):
+                    switch($tasks[$arr]['status']) {
+                        case 'to-do':
+                            break;
+                        default:
+                            continue 2;
+                    }
+                    ?>
+                    <div class="card card-info card-outline" data-task-id="1">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <?php echo ($tasks[$arr]['title']);?>
+                            </h5>
+                            <div class="card-tools">
+                                <a href="#" class="btn btn-tool btn-link">#3</a>
+                                <a href="#" class="btn btn-tool">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                            <a href="#" class="btn btn-tool">
+                                <i class="fas fa-file"></i>
+                            </a>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                        </div>
+                    </div>
+                <?php endfor; ?>
             </div>
           </div>
           <div class="card card-row card-default">
@@ -182,6 +269,36 @@ $task = 'backlog'
               </h3>
             </div>
             <div class="card-body connectedSortable" data-status="in-progress">
+                <?php
+                for ($arr = 0; $arr < count($tasks); $arr++):
+                    switch($tasks[$arr]['status']) {
+                        case 'in-progress':
+                            break;
+                        default:
+                            continue 2;
+                    }
+                    ?>
+                    <div class="card card-info card-outline" data-task-id="1">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <?php echo ($tasks[$arr]['title']);?>
+                            </h5>
+                            <div class="card-tools">
+                                <a href="#" class="btn btn-tool btn-link">#3</a>
+                                <a href="#" class="btn btn-tool">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                            <a href="#" class="btn btn-tool">
+                                <i class="fas fa-file"></i>
+                            </a>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                        </div>
+                    </div>
+                <?php endfor; ?>
             </div>
           </div>
           <div class="card card-row card-success">
@@ -191,10 +308,41 @@ $task = 'backlog'
               </h3>
             </div>
             <div class="card-body connectedSortable" data-status="done">
+                <?php
+                    for ($arr = 0; $arr < count($tasks); $arr++):
+                        switch($tasks[$arr]['status']) {
+                            case 'done':
+                                break;
+                            default:
+                                continue 2;
+                        }
+                ?>
+                <div class="card card-info card-outline" data-task-id="1">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <?php echo ($tasks[$arr]['title']);?>
+                        </h5>
+                        <div class="card-tools">
+                            <a href="#" class="btn btn-tool btn-link">#3</a>
+                            <a href="#" class="btn btn-tool">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <?php echo ($tasks[$arr]['due_date']);?>
+                        </p>
+                        <a href="#" class="btn btn-tool">
+                            <i class="fas fa-file"></i>
+                        </a>
+                        <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                    </div>
+                </div><?php endfor; ?>
             </div>
           </div>
+          </div>
         </div>
-      </section>
     </div>
 
     <footer class="main-footer">
@@ -210,7 +358,6 @@ $task = 'backlog'
       <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
-  </div>
   <!-- ./wrapper -->
 
   <!-- jQuery -->
