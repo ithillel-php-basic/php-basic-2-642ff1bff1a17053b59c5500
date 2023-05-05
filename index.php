@@ -32,13 +32,13 @@ $tasks = [
         'title' => 'Купити корм для кота',
         'project' => 'Домашні справи',
         'status' => 'in-progress',
-        'due_date' => 'null',
+        'due_date' => null,
     ],
     [
         'title' => 'Замовити піцу',
         'project' => 'Домашні справи',
         'status' => 'to-do',
-        'due_date' => 'null',
+        'due_date' => null,
     ],
 ];
 
