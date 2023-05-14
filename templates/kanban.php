@@ -35,20 +35,20 @@
                     </h3>
                 </div>
 
+
                 <div class="card-body connectedSortable" data-status="backlog">
                     <?php
-                    for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'backlog':
-                                break;
-                            default:
-                                continue 2;
-                        }
-                        ?>
+                        for ($arr = 0; $arr < count($tasks); $arr++):
+                            if ($tasks[$arr]['status'] === 'backlog'){
+                            }
+                            else {
+                                continue;
+                            }
+                    ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=($tasks[$arr]['title']);?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -59,14 +59,34 @@
                             </div>
                             <div class="card-body">
                                 <p>
-                                    <?php
-                                    echo($tasks[$arr]['due_date']);
-                                    ?>
+                                    <?=($tasks[$arr]['due_date']);?>
                                 </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <?php
+                                    $data_time = strtotime($tasks[$arr]['due_date']);
+                                    $time_now = strtotime('now')+10800;
+                                    $difference = (($data_time-$time_now)/60/60);
+                                    $for_audit = ($data_time >= $time_now);
+                                    ?>
+
+                                    <small <?php if($for_audit):?> class="badge badge-success"<?php endif;?>
+                                            class="badge badge-danger"</i>
+                                <i class="far fa-clock"></i>
+                                <?php
+                                switch ($tasks[$arr]['due_date']) {
+                                    case $difference < 24 && $difference > -24:
+                                        echo floor($difference) . ' годин';
+                                        break;
+                                    case $difference < -24 || $difference > 24:
+                                        echo floor($difference/24) . ' днів';
+                                        break;
+                                }
+                                ?>
+                                    </small>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -81,17 +101,16 @@
                 <div class="card-body connectedSortable" data-status="to-do">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'to-do':
-                                break;
-                            default:
-                                continue 2;
-                        }
+                        if ($tasks[$arr]['status'] === 'to-do'){
+                            }
+                        else {
+                            continue;
+                            }
                         ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=($tasks[$arr]['title']);?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -101,11 +120,33 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                                <p>  <?=($tasks[$arr]['due_date']); ?> </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <?php
+                                    $data_time = strtotime($tasks[$arr]['due_date']);
+                                    $time_now = strtotime('now')+10800;
+                                    $difference = (($data_time-$time_now)/60/60);
+                                    $for_audit = ($data_time >= $time_now);
+                                    ?>
+
+                                    <small <?php if($for_audit):?> class="badge badge-success"<?php endif;?>
+                                            class="badge badge-danger"</i>
+                                    <i class="far fa-clock"></i>
+                                    <?php
+                                    switch ($tasks[$arr]['due_date']) {
+                                        case $difference < 24 && $difference > -24:
+                                            echo floor($difference) . ' годин';
+                                            break;
+                                        case $difference < -24 || $difference > 24:
+                                            echo floor($difference/24) . ' днів';
+                                            break;
+                                    }
+                                    ?>
+                                    </small>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -120,17 +161,16 @@
                 <div class="card-body connectedSortable" data-status="in-progress">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'in-progress':
-                                break;
-                            default:
-                                continue 2;
-                        }
+                        if ($tasks[$arr]['status'] === 'in-progress'){
+                            }
+                        else {
+                            continue;
+                            }
                         ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=($tasks[$arr]['title']);?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -140,11 +180,33 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                                <p>  <?=($tasks[$arr]['due_date']);?> </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <?php
+                                    $data_time = strtotime($tasks[$arr]['due_date']);
+                                    $time_now = strtotime('now')+10800;
+                                    $difference = (($data_time-$time_now)/60/60);
+                                    $for_audit = ($data_time >= $time_now);
+                                    ?>
+
+                                    <small <?php if($for_audit):?> class="badge badge-success"<?php endif;?>
+                                            class="badge badge-danger"</i>
+                                    <i class="far fa-clock"></i>
+                                    <?php
+                                    switch ($tasks[$arr]['due_date']) {
+                                        case $difference < 24 && $difference > -24:
+                                            echo floor($difference) . ' годин';
+                                            break;
+                                        case $difference < -24 || $difference > 24:
+                                            echo floor($difference/24) . ' днів';
+                                            break;
+                                    }
+                                    ?>
+                                    </small>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -159,17 +221,16 @@
                 <div class="card-body connectedSortable" data-status="done">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'done':
-                                break;
-                            default:
-                                continue 2;
-                        }
-                        ?>
+                        if ($tasks[$arr]['status'] === 'done'){
+                            }
+                        else {
+                            continue;
+                            }
+                    ?>
                         <div class="card card-info card-outline" data-task-id="1">
                         <div class="card-header">
                             <h5 class="card-title">
-                                <?php echo ($tasks[$arr]['title']);?>
+                                <?=($tasks[$arr]['title']);?>
                             </h5>
                             <div class="card-tools">
                                 <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -180,12 +241,34 @@
                         </div>
                         <div class="card-body">
                             <p>
-                                <?php echo ($tasks[$arr]['due_date']);?>
+                                <?=($tasks[$arr]['due_date']);?>
                             </p>
                             <a href="#" class="btn btn-tool">
                                 <i class="fas fa-file"></i>
                             </a>
-                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                            <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                <?php
+                                $data_time = strtotime($tasks[$arr]['due_date']);
+                                $time_now = strtotime('now')+10800;
+                                $difference = (($data_time-$time_now)/60/60);
+                                $for_audit = ($data_time >= $time_now);
+                                ?>
+
+                                <small <?php if($for_audit):?> class="badge badge-success"<?php endif;?>
+                                        class="badge badge-danger"</i>
+                                <i class="far fa-clock"></i>
+                                <?php
+                                switch ($tasks[$arr]['due_date']) {
+                                    case $difference < 24 && $difference > -24:
+                                        echo floor($difference) . ' годин';
+                                        break;
+                                    case $difference < -24 || $difference > 24:
+                                        echo floor($difference/24) . ' днів';
+                                        break;
+                                }
+                                ?>
+                                </small>
+                            <?php endif;?>
                         </div>
                         </div><?php endfor; ?>
                 </div>

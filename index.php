@@ -8,13 +8,13 @@ $tasks = [
         'title' => 'Співбесіда в IT компанії',
         'project' => 'Робота',
         'status' => 'backlog',
-        'due_date' => '01.03.2023',
+        'due_date' => null,
     ],
     [
         'title' => 'Виконати тестове завдання',
         'project' => 'Робота',
         'status' => 'backlog',
-        'due_date' => '25.07.2023',
+        'due_date' => '15.05.2023',
     ],
     [
         'title' => 'Зробити завдання до першого уроку',
@@ -52,6 +52,8 @@ function how_much ($tasks, $projects){
     return $count;
 }
 
+
+
 $name_title = 'Завдання та проекти | Дошка';
 $name_image_src = 'static/img/user2-160x160.jpg';
 $name_user = 'Володимир';
@@ -60,7 +62,7 @@ $name_user = 'Володимир';
 require 'helpers.php';
 
 $renderKandan = renderTemplate('kanban.php', [
-    'tasks' => $tasks
+    'tasks' => $tasks,
 ]);
 
 $rendermain = renderTemplate('main.php', [
