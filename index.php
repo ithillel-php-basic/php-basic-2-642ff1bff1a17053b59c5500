@@ -14,13 +14,13 @@ $tasks = [
         'title' => 'Виконати тестове завдання',
         'project' => 'Робота',
         'status' => 'backlog',
-        'due_date' => '15.05.2023',
+        'due_date' => '19.05.2023',
     ],
     [
         'title' => 'Зробити завдання до першого уроку',
         'project' => 'Навчання',
         'status' => 'done',
-        'due_date' => '27.04.2023',
+        'due_date' => '27.07.2023',
     ],
     [
         'title' => 'Зустрітись з друзями',
@@ -54,6 +54,36 @@ function how_much ($tasks, $projects){
 
 
 
+
+
+
+
+
+
+
+
+function how_much_time ($tasks)
+{
+
+    $data_time = strtotime($tasks);
+    $time_now = strtotime('now') + 10800;
+    $difference = (($data_time - $time_now) / 60 / 60);
+
+    if ($difference <= 24 && $difference >= -24) {
+        return floor($difference) . ' годин';
+    }
+    return floor($difference / 24) . ' днів';
+}
+
+
+
+
+
+
+
+
+
+
 $name_title = 'Завдання та проекти | Дошка';
 $name_image_src = 'static/img/user2-160x160.jpg';
 $name_user = 'Володимир';
@@ -77,5 +107,3 @@ print renderTemplate('layout.php', [
     'name_title' => $name_title,
     'rendermain' => $rendermain,
 ]);
-
-
