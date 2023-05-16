@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <?= $name_title ?></title>
+    <title> <?=$name_title?></title>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -23,15 +24,7 @@
 </head>
 
 <body>
-<?php
-echo $rendermain;
-//renderTemplate('main.php', [
-//    'name_image_src' => $name_image_src,
-//    'name_user' => $name_user,
-//    'projects' => $projects,
-//    'tasks' => $tasks,
-//])
-?>
+<?=$rendermain;?>
 </body>
 
 </html>

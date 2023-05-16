@@ -64,11 +64,7 @@
                                 <p>
                                     <?= $projects[$i];?>
                                     <span class="badge badge-info right">
-                                    <?php
-
-                                    echo how_much ($tasks,$projects[$i]);
-
-                                    ?>
+                                    <?=how_much ($tasks,$projects[$i]);?>
                                     </span>
                                 </p>
                             </a>
@@ -90,9 +86,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <?php
-echo $renderKandan;
-    ?>
+    <?=$renderKandan;?>
 </div>
 
 <footer class="main-footer">
@@ -102,6 +96,7 @@ echo $renderKandan;
     <strong>Copyright &copy; 2023 <a href="https://ithillel.ua/">Комп'ютерна школа Hillel</a>.</strong> All rights
     reserved.
 </footer>
+
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">

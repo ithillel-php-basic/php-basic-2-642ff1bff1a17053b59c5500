@@ -25,7 +25,6 @@
             </div>
         </div>
     </section>
-
     <section class="content pb-3">
         <div class="container-fluid h-100">
             <div class="card card-row card-secondary">
@@ -34,21 +33,15 @@
                         Беклог
                     </h3>
                 </div>
-
-                <div class="card-body connectedSortable" data-status="backlog">
+                <div class="card-body connectedSortable" data-status='backlog'>
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'backlog':
-                                break;
-                            default:
-                                continue 2;
-                        }
-                        ?>
+                        if ($tasks[$arr]['status'] === 'backlog') {
+                            ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=$tasks[$arr]['title'];?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -59,16 +52,25 @@
                             </div>
                             <div class="card-body">
                                 <p>
-                                    <?php
-                                    echo($tasks[$arr]['due_date']);
-                                    ?>
+                                    <?=$tasks[$arr]['due_date'];?>
                                 </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <small
+                                    <?php if(strtotime($tasks[$arr]['due_date']) >= strtotime('now')+10800): ?>
+                                        class="badge badge-success"
+                                        <?php else: ?>
+                                            class="badge badge-danger"
+                                        <?php endif; ?>
+                                        ><i class="far fa-clock"></i>
+                                        <?=how_much_time($tasks[$arr]['due_date'])?>
+                                    </small>
+                                <?php endif; ?>
                             </div>
                         </div>
+                    <?php } ?>
                     <?php endfor; ?>
                 </div>
             </div>
@@ -81,17 +83,14 @@
                 <div class="card-body connectedSortable" data-status="to-do">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'to-do':
-                                break;
-                            default:
-                                continue 2;
+                        if ($tasks[$arr]['status'] !== 'to-do'){
+                            continue;
                         }
                         ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=($tasks[$arr]['title']);?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -101,11 +100,21 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                                <p>  <?=($tasks[$arr]['due_date']); ?> </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <small
+                                        <?php if(strtotime($tasks[$arr]['due_date']) >= strtotime('now')+10800): ?>
+                                            class="badge badge-success"
+                                        <?php else: ?>
+                                            class="badge badge-danger"
+                                        <?php endif; ?>
+                                    ><i class="far fa-clock"></i>
+                                        <?=how_much_time($tasks[$arr]['due_date'])?>
+                                    </small>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -120,17 +129,14 @@
                 <div class="card-body connectedSortable" data-status="in-progress">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'in-progress':
-                                break;
-                            default:
-                                continue 2;
+                        if ($tasks[$arr]['status'] !== 'in-progress'){
+                            continue;
                         }
                         ?>
                         <div class="card card-info card-outline" data-task-id="1">
                             <div class="card-header">
                                 <h5 class="card-title">
-                                    <?php echo ($tasks[$arr]['title']);?>
+                                    <?=($tasks[$arr]['title']);?>
                                 </h5>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -140,11 +146,21 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p>  <?php echo ($tasks[$arr]['due_date']);?> </p>
+                                <p>  <?=($tasks[$arr]['due_date']);?> </p>
                                 <a href="#" class="btn btn-tool">
                                     <i class="fas fa-file"></i>
                                 </a>
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                    <small
+                                        <?php if(strtotime($tasks[$arr]['due_date']) >= strtotime('now')+10800): ?>
+                                            class="badge badge-success"
+                                        <?php else: ?>
+                                            class="badge badge-danger"
+                                        <?php endif; ?>
+                                    ><i class="far fa-clock"></i>
+                                        <?=how_much_time($tasks[$arr]['due_date'])?>
+                                    </small>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endfor; ?>
@@ -159,17 +175,14 @@
                 <div class="card-body connectedSortable" data-status="done">
                     <?php
                     for ($arr = 0; $arr < count($tasks); $arr++):
-                        switch($tasks[$arr]['status']) {
-                            case 'done':
-                                break;
-                            default:
-                                continue 2;
+                        if ($tasks[$arr]['status'] !== 'done'){
+                            continue;
                         }
                         ?>
                         <div class="card card-info card-outline" data-task-id="1">
                         <div class="card-header">
                             <h5 class="card-title">
-                                <?php echo ($tasks[$arr]['title']);?>
+                                <?=($tasks[$arr]['title']);?>
                             </h5>
                             <div class="card-tools">
                                 <a href="#" class="btn btn-tool btn-link">#3</a>
@@ -180,12 +193,22 @@
                         </div>
                         <div class="card-body">
                             <p>
-                                <?php echo ($tasks[$arr]['due_date']);?>
+                                <?=($tasks[$arr]['due_date']);?>
                             </p>
                             <a href="#" class="btn btn-tool">
                                 <i class="fas fa-file"></i>
                             </a>
-                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                            <?php if  ($tasks[$arr]['due_date'] !== null): ?>
+                                <small
+                                    <?php if(strtotime($tasks[$arr]['due_date']) >= strtotime('now')+10800): ?>
+                                        class="badge badge-success"
+                                    <?php else: ?>
+                                        class="badge badge-danger"
+                                    <?php endif; ?>
+                                ><i class="far fa-clock"></i>
+                                    <?=how_much_time($tasks[$arr]['due_date'])?>
+                                </small>
+                            <?php endif;?>
                         </div>
                         </div><?php endfor; ?>
                 </div>
