@@ -26,13 +26,19 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "settings.sync"
   },
   "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ],
     "GitStage.ChangesTree.GroupingKeys": [
       "directory",
       "module",
       "repository"
+    ],
+    "RunConfigurationTargetLRU": [
+      "8f0939f1-8ff2-4a80-a348-005f1503c7f6"
     ]
   }
 }]]></component>
@@ -40,6 +46,14 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="schema.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/schema.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="8f0939f1-8ff2-4a80-a348-005f1503c7f6" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="TaskManager">
     <servers />
@@ -54,5 +68,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
