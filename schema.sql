@@ -39,5 +39,3 @@ CREATE TABLE `tasks`
             ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
-
-INSERT INTO `users` (created_at, email, name, password) VALUES ('2023-03-03', 'test2', 'admin', 'root')
