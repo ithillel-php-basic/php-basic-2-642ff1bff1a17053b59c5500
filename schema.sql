@@ -25,13 +25,13 @@ CREATE TABLE `projects`
 CREATE TABLE `tasks`
 (
     `id`         int(20)      NOT NULL AUTO_INCREMENT,
-    `created_at` date     NULL,
+    `created_at` date         NULL,
     `status`     varchar(20)  NOT NULL,
     `header`     varchar(50)  NOT NULL,
     `description`varchar(350) NOT NULL,
     `file`       varchar(350) NOT NULL,
-    `deadline`   date         NOT NULL,
-    `projects_id`int(20)      NULL,
+    `deadline`   date         NULL,
+    `projects_id`int(20)      NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `projects_id`
         FOREIGN KEY (`projects_id`) REFERENCES `projects` (`id`)
