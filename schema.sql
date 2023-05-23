@@ -25,7 +25,7 @@ CREATE TABLE `projects`
 CREATE TABLE `tasks`
 (
     `id`         int(20)      NOT NULL AUTO_INCREMENT,
-    `created_at` date             NULL,
+    `created_at` date         NULL,
     `status`     varchar(20)  NOT NULL,
     `header`     varchar(50)  NOT NULL,
     `description`varchar(350) NOT NULL,
