@@ -1,3 +1,9 @@
+INSERT INTO users (name, password, created_at, email)
+VALUES
+    ('Олексій', 'root', '2023-03-24 00:00:00', 'test1@test'),
+    ('Анна', 'root', '2021-04-12 00:00:00', 'test2@test'),
+    ('Вадим', 'root', '2014-12-05 00:00:00', 'test3@test');
+
 INSERT INTO projects (name, user_id)
 VALUES
     ('Вхідні',5),
@@ -5,14 +11,6 @@ VALUES
     ('Робота',7),
     ('Домашні справи',6),
     ('Авто',6);
-
-INSERT INTO users (name, password, created_at, email)
-VALUES
-    ('Олексій', 'root', '2023-03-24 00:00:00', 'test1@test'),
-    ('Анна', 'root', '2021-04-12 00:00:00', 'test2@test'),
-    ('Вадим', 'root', '2014-12-05 00:00:00', 'test3@test');
-
-
 
 INSERT INTO tasks (created_at, status, header, description, file, projects_id)
 VALUES
