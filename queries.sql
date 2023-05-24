@@ -24,8 +24,8 @@ VALUES
     ('2023-05-23', 'done', 'Зробити завдання до першого уроку', '', '','2023-07-27', 1),
     ('2023-05-23', 'to-do', 'Зустрітись з друзями', '', '','2023-05-14', 1);
 
-SELECT name FROM projects WHERE user_id=6; /* отримую усі проекти для конкретного користувача */
-SELECT header FROM tasks WHERE projects_id=18; /* отримую усі завдання для конкретного проекту */
-UPDATE tasks SET status='in-progress' WHERE id=7; /* змінює статус конкретного завдання на 'в роботі' */
-UPDATE tasks SET status='done' WHERE id=7; /* змінює статус конкретного завдання  на 'виконано' */
+SELECT name FROM projects WHERE user_id=2; /* отримую усі проекти для конкретного користувача */
+SELECT header FROM tasks WHERE projects_id=3; /* отримую усі завдання для конкретного проекту */
+UPDATE tasks SET status='in-progress' WHERE id=5; /* змінює статус конкретного завдання на 'в роботі' */
+UPDATE tasks SET status='done' WHERE id=2; /* змінює статус конкретного завдання  на 'виконано' */
 UPDATE tasks SET header='Купити шкарпетки' WHERE id=4; /* змінює назву конкретного завдання */
