@@ -29,3 +29,22 @@ SELECT header FROM tasks WHERE projects_id=3; /* отримую усі завд�
 UPDATE tasks SET status='in-progress' WHERE id=5; /* змінює статус конкретного завдання на 'в роботі' */
 UPDATE tasks SET status='done' WHERE id=2; /* змінює статус конкретного завдання  на 'виконано' */
 UPDATE tasks SET header='Купити шкарпетки' WHERE id=4; /* змінює назву конкретного завдання */
+SELECT COUNT(*) FROM tasks WHERE projects_id = ?;
+SELECT name FROM projects ;
+SELECT projects_id, COUNT(*) FROM tasks GROUP BY projects_id;
+
+
+
+
+    SELECT status, header, deadline
+    FROM tasks
+        LEFT JOIN projects ON tasks.projects_id=projects.id
+WHERE user_id = ?
+    GROUP BY tasks.id
+
+SELECT status AS title,
+       header , deadline
+FROM tasks
+         LEFT JOIN projects ON tasks.projects_id=projects.id
+WHERE user_id = ?
+GROUP BY tasks.id
