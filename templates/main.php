@@ -45,7 +45,11 @@
                     <img src=<?=$name_image_src?> class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block"><?=$name_user?></a>
+                    <a href="#" class="d-block">
+                        <?=
+                        whitch_user();
+                        ?>
+                    </a>
                 </div>
             </div>
 
@@ -53,23 +57,40 @@
 
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+
+
+
+
+
+
+
+
                     <?php
-                    for ($i = 0; $i < count($projects); $i++):
-                        ?>
+                    for ($i = 0; $i < count($projects); $i++):  ?>
                         <!-- Add icons to the links using the .nav-icon class
                            with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="index.php" class="nav-link active">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
-                                    <?= $projects[$i];?>
+                                    <?= $projects[$i]['name'];?>
                                     <span class="badge badge-info right">
-                                    <?=how_much ($tasks,$projects[$i]);?>
+                                    <?=$projects[$i]['tasks'];?>
                                     </span>
                                 </p>
                             </a>
                         </li>
                     <?php endfor; ?>
+
+
+
+
+
+
+
+
+
                     <li class="nav-item">
                         <a href="index.php" class="nav-link bg-olive">
                             <i class="nav-icon fas fa-plus"></i>
