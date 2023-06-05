@@ -47,7 +47,7 @@
                 <div class="info">
                     <a href="#" class="d-block">
                         <?=
-                        whitch_user();
+                        $whitch_user;
                         ?>
                     </a>
                 </div>
@@ -60,34 +60,32 @@
 
 
 
-
-
-
-
-
-
                     <?php
-                    for ($i = 0; $i < count($projects); $i++):  ?>
+                    foreach ($projects as $project):  ?>
                         <!-- Add icons to the links using the .nav-icon class
                            with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link active">
-                                <i class="nav-icon fas fa-columns"></i>
+                            <?php
+                                if ($project['id'] == $projects_id){
+                                    $active_class = 'active';
+                                }
+                                else{
+                                    $active_class = '';
+                                }
+                            ?>
+                            <a href="index.php?project_id=<?=$project['id']?>" class="nav-link <?=$active_class?>">
+
+                                <i class="nav-icon fas fa-columns"> </i>
                                 <p>
-                                    <?= $projects[$i]['name'];?>
+                                    <?= $project['name'];?>
                                     <span class="badge badge-info right">
-                                    <?=$projects[$i]['tasks'];?>
+                                    <?=$project['tasks'];?>
                                     </span>
                                 </p>
                             </a>
+
                         </li>
-                    <?php endfor; ?>
-
-
-
-
-
-
+                    <?php endforeach; ?>
 
 
 

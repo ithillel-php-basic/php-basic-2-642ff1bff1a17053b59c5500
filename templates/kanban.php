@@ -4,7 +4,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h1>
-                        Назва проекту
+                        <?php
+                        $projects_id = intval($projects_id);
+                        foreach ($projects as $project){
+                            if ($project['id'] === $projects_id){
+                                echo $project['name'];
+                            }
+                        }
+                        ?>
                     </h1>
                 </div>
                 <div class="col-sm-6 d-none d-sm-block">
@@ -216,3 +223,4 @@
                 </div>
             </div>
         </div>
+
