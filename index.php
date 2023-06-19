@@ -1,57 +1,5 @@
 <?php
-$task = 'backlog';
-
-//$projects = ["Вхідні", "Навчання", "Робота", "Домашні справи", "Авто"];
-
-//$tasks = [
-//    [
-//        'title' => 'Співбесіда в IT компанії',
-//        'project' => 'Робота',
-//        'status' => 'backlog',
-//        'due_date' => null,
-//    ],
-//    [
-//        'title' => 'Виконати тестове завдання',
-//        'project' => 'Робота',
-//        'status' => 'backlog',
-//        'due_date' => '19.05.2023',
-//    ],
-//    [
-//        'title' => 'Зробити завдання до першого уроку',
-//        'project' => 'Навчання',
-//        'status' => 'done',
-//        'due_date' => '27.07.2023',
-//    ],
-//    [
-//        'title' => 'Зустрітись з друзями',
-//        'project' => 'Вхідні',
-//        'status' => 'to-do',
-//        'due_date' => '14.05.2023',
-//    ],
-//    [
-//        'title' => 'Купити корм для кота',
-//        'project' => 'Домашні справи',
-//        'status' => 'in-progress',
-//        'due_date' => null,
-//    ],
-//    [
-//        'title' => 'Замовити піцу',
-//        'project' => 'Домашні справи',
-//        'status' => 'to-do',
-//        'due_date' => null,
-//    ],
-//];
-
-//function how_much ($tasks, $projects){
-//    $count = 0;
-//    foreach ($tasks as $tasks2) {
-//        if ($tasks2['project'] === $projects) {
-//            $count++;
-//        }
-//    }
-//    return $count;
-//}
-
+require 'helpers.php';
 function how_much_time ($tasks)
 {
 
@@ -65,7 +13,7 @@ function how_much_time ($tasks)
     return floor($difference / 24) . ' днів';
 }
 
-function bd() /* Ця функція підключається до сервера бд */
+function getConnection() /* Ця функція підключається до сервера бд */
 {
     mysqli_report(MYSQLI_REPORT_OFF);
     $mysqli = mysqli_connect('localhost', 'root', '', 'my_bd');
@@ -76,11 +24,11 @@ function bd() /* Ця функція підключається до серве�
     return $mysqli;
 }
 
-function whitch_user() /* Ця функція виводить імʼя користувача */
+function whitch_user($mysqli, $id) /* Ця функція виводить імʼя користувача */
 {
-    $id = $_GET['id'] ?? 1;
+
     $sql = 'SELECT name FROM users WHERE id = ? ';
-    $mysqli = bd();
+
     $stmt = mysqli_prepare($mysqli, $sql);
     if ($stmt === false) {
         die('Fail to prepare query! Error: ' . mysqli_error($mysqli));
@@ -103,11 +51,9 @@ function whitch_user() /* Ця функція виводить імʼя кори
 
     $rows = mysqli_fetch_all($res, MYSQLI_ASSOC);
     foreach ($rows as $row) {
-        echo $row['name'];
+        return $row['name'];
     }
 }
-
-
 
 
 
@@ -143,26 +89,51 @@ function get_projects($mysqli, $user_id) /* Ця функція виводить
     return($rows);
 }
 
-function get_tasks($mysqli, $user_id)
+function get_tasks($mysqli, $user_id, $projects_id)
 {
     $sql = 'SELECT status,
        header AS title,
        deadline AS due_date
     FROM tasks
         LEFT JOIN projects ON tasks.projects_id=projects.id
-WHERE user_id = ?
-    GROUP BY tasks.id';
+WHERE user_id = ?';
+
+    if ($projects_id !== null) {
+        $sql .= ' AND projects_id = ?';
+    }
+    $sql .= ' GROUP BY tasks.id';
+
+
     $stmt = mysqli_prepare($mysqli, $sql);
     if ($stmt === false) {
         die('Fail to prepare query! Error: ' . mysqli_error($mysqli));
     }
-    if (!mysqli_stmt_bind_param(
-        $stmt,
-        'i',
-        $user_id
-    )) {
-        die('Error in params binding!');
+    if ($projects_id !== null) {
+        if (!mysqli_stmt_bind_param(
+            $stmt,
+            'ii',
+            $user_id, $projects_id,
+        )) {
+            die('Error in params binding!');
+        }
+
     }
+    else {
+        if (!mysqli_stmt_bind_param(
+            $stmt,
+            'i',
+            $user_id,
+        )) {
+            die('Error in params binding!');
+        }}
+
+
+
+
+
+
+
+
     if (!mysqli_stmt_execute($stmt)) {
         die('Cant execute query: ' . mysqli_stmt_error($mysqli));
     }
@@ -175,43 +146,63 @@ WHERE user_id = ?
     $rows = mysqli_fetch_all($res, MYSQLI_ASSOC);
     return($rows);
 }
+$mysqli = getConnection();
 
-$mysqli = bd();
-$user_id = 1;
+$user_id = 3; $id = $user_id;
+
+$projects = get_projects($mysqli, $user_id);
+$project_id = $_GET['project_id'] ?? null;
+
+
+
+
+function isProjectExists($projects, $project_id)
+{
+if ($project_id === null){
+    return true;
+}
+    $project_id = intval($project_id);
+    foreach ($projects as $project) {
+        if ($project['id'] === $project_id){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+if (isProjectExists($projects, $project_id) === true) {
+    $tasks = get_tasks($mysqli, $user_id, $project_id);
+}
+else{
+    return http_response_code ( response_code: 404);
+
+}
+
+
+$whitch_user = whitch_user($mysqli, $id);
 $name_title = 'Завдання та проекти | Дошка';
 $name_image_src = 'static/img/user2-160x160.jpg';
-//$name_user = 'Володимир';
-$projects = get_projects($mysqli, $user_id);
-$tasks = get_tasks($mysqli, $user_id);
-
-
-
-
-
-
-
-
-
-
-
-
-require 'helpers.php';
-
-
 
 /* Передаю до шаблону значення змінних */
 $renderKandan = renderTemplate('kanban.php',
     [
     'tasks' => $tasks,
+        'projects_id' => $project_id,
+        'projects' => $projects,
     ]);
 
 $rendermain = renderTemplate('main.php',
     [
     'name_image_src' => $name_image_src,
-//    'name_user' => $name_user,
+    'whitch_user' => $whitch_user,
     'projects' => $projects,
     'tasks' => $tasks,
     'renderKandan' => $renderKandan,
+    'projects_id' => $project_id,
+
     ]);
 
 print renderTemplate('layout.php',
@@ -219,7 +210,4 @@ print renderTemplate('layout.php',
     'name_title' => $name_title,
     'rendermain' => $rendermain,
     ]);
-
-
-
 
